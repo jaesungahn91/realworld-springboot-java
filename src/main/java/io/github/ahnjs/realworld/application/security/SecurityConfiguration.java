@@ -4,8 +4,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -26,8 +28,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
         http.formLogin().disable();
         http.logout().disable();
 
-//        http.addFilterBefore();
-        http.authorizeRequests();
+        http.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.authorizeRequests()
+//                .antMatchers(HttpMethod.POST, "/users").permitAll()
+                .anyRequest().authenticated();
     }
 
 
