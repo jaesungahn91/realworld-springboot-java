@@ -23,6 +23,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    @SuppressWarnings("java:S2160")
     static class JWT extends AbstractAuthenticationToken {
 
         private final String token;

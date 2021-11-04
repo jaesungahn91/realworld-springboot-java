@@ -1,8 +1,10 @@
 package io.github.ahnjs.realworld.application.security;
 
+import io.github.ahnjs.realworld.domain.jwt.JWTDeserializer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,6 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
                 .anyRequest().authenticated();
     }
 
+    @Bean
+    JWTAuthenticationProvider jwtAuthenticationProvider(JWTDeserializer jwtDeserializer) {
+        return new JWTAuthenticationProvider(jwtDeserializer);
+    }
 
 }
 
