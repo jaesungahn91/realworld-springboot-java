@@ -3,6 +3,10 @@ package io.github.ahnjs.realworld.infrastructure.jwt;
 import io.github.ahnjs.realworld.domain.jwt.JWTPayload;
 import io.github.ahnjs.realworld.domain.user.User;
 
+import java.time.Instant;
+
+import static java.lang.String.format;
+
 public class UserJWTPayload implements JWTPayload {
 
     private final long sub;
@@ -21,11 +25,16 @@ public class UserJWTPayload implements JWTPayload {
 
     @Override
     public long getUserId() {
-        return 0;
+        return sub;
     }
 
     @Override
     public boolean isExpired() {
-        return false;
+        return iat < Instant.now().getEpochSecond();
+    }
+
+    @Override
+    public String toString() {
+        return format("{\"sub\":%d,\"name\":\"%s\",\"iat\":%d}", sub, name, iat);
     }
 }
