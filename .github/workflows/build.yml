@@ -24,6 +24,14 @@ jobs:
       uses: norio-nomura/action-swiftlint@3.2.1
       env:
         DIFF_BASE: ${{ github.base_ref }}
+    - name: Add PR Comment
+      if: ${{ success() }}
+      uses: mshick/add-pr-comment@v1
+      with:
+        message: |
+         ## All File Checked ✅
+         | ✅ 	| Auto Pull Request SwiftLint Success!!!! 	|
+         |---	|----------------------------------------------	|
 
     # - name: Build with Gradle
     #   uses: gradle/gradle-build-action@v2
