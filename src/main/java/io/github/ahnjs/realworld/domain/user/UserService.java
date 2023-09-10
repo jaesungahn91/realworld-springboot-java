@@ -15,11 +15,12 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    // TODO:
     public User signUp(UserSignUpRequest request) {
         final var encodedPassword = Password.of(request.getRawPassword(), passwordEncoder);
         return userRepository.save(User.of(request.getEmail(),
-                                            request.getUserName(),
-                                            encodedPassword
-                                    ));
+                request.getUserName(),
+                encodedPassword
+        ));
     }
 }
