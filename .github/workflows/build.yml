@@ -18,7 +18,14 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        arguments: build
+
+    - uses: actions/checkout@v1
+    - name: GitHub Action for SwiftLint
+      uses: norio-nomura/action-swiftlint@3.2.1
+      env:
+        DIFF_BASE: ${{ github.base_ref }}
+
+    # - name: Build with Gradle
+    #   uses: gradle/gradle-build-action@v2
+    #   with:
+    #     arguments: build
