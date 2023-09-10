@@ -15,7 +15,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    // TODO: 테스트
     public User signUp(UserSignUpRequest request) {
         final var encodedPassword = Password.of(request.getRawPassword(), passwordEncoder);
         return userRepository.save(User.of(request.getEmail(),
